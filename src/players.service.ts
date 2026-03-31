@@ -26,7 +26,7 @@ export class PlayersService{
     async getSinglePlayer(playerId: string){
         const player = await this.findPlayer(playerId);
        
-        return {id: player.id, title: player.title, description: player.desc, price: player.price };
+        return {id: player.id, name: player.name, pos: player.pos, speed: player.speed, strength: player.strength };
 
     }
     async updatePlayer(playerId: string, name: string, pos: string, speed: number, strength: number){
@@ -34,24 +34,27 @@ export class PlayersService{
 
 
 
-            if(title){
-            updatedProduct.title=title;
+            if(name){
+            updatedPlayer.name=name;
          }
-           if(desc){
-            updatedProduct.desc=desc;
+           if(pos){
+            updatedPlayer.pos=pos;
         
          }
-           if(price){
-            updatedProduct.price=price;
+           if(speed){
+            updatedPlayer.speed=speed;
+         }
+          if(strength){
+            updatedPlayer.strength=strength;
          }
          
-           updatedProduct.save();
+           updatedPlayer.save();
 
         
 
     }
-     async deleteProduct(prodId: string){
-       const result = await this.productModel.deleteOne({_id: prodId}).exec();
+     async deletePlayer(playId: string){
+       const result = await this.playerModel.deleteOne({_id: playId}).exec();
         if (result.deletedCount === 0){
             throw new NotFoundException('Could not find Product.')
         }
@@ -59,18 +62,18 @@ export class PlayersService{
 
     }
 
-    private async findProduct(id:string): Promise<Product>{
-        let product;
+    private async findPlayer(id:string): Promise<Player>{
+        let player;
     try{
-         product = await this.productModel.findById(id).exec();
+         player = await this.playerModel.findById(id).exec();
     } catch(error){
-        throw new NotFoundException('Could not find Product.');
+        throw new NotFoundException('Could not find Player.');
         
     }
-        if(!product){
-            throw new NotFoundException('Could not find Product.');
+        if(!player){
+            throw new NotFoundException('Could not find Player.');
         }
-        return product;
+        return player;
     }
    
 }
