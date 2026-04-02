@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete} from "@nestjs/common";
-import { ProductsService } from "./players.service";
+import { PlayersService } from "./players.service";
 
 @Controller ('players')
 export class PlayersController {
@@ -43,7 +43,7 @@ constructor (private readonly playersService: PlayersService){
         @Body('speed') playSpeed: number,
          @Body('strength') playStrength: number
     ){
-       await this.playersService.updateProduct(playId, playName, playPos, playSpeed, playStrength)
+       await this.playersService.updatePlayer(playId, playName, playPos, playSpeed, playStrength)
         return null;
     }
     @Delete(':id')
